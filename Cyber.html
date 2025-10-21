@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cyber Threat Analytics Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-900">
+  <header class="bg-blue-900 text-white py-4 shadow-md">
+    <h1 class="text-3xl font-bold text-center">Cyber Threat Analytics Dashboard</h1>
+    <p class="text-center text-blue-200">Visualizing global cyber attack trends & insights</p>
+  </header>
+
+  <main class="max-w-6xl mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+    <section class="bg-white shadow-lg rounded-2xl p-4">
+      <h2 class="text-xl font-semibold mb-2 text-blue-800">Attack Types Distribution</h2>
+      <canvas id="attackTypesChart"></canvas>
+    </section>
+
+    <section class="bg-white shadow-lg rounded-2xl p-4">
+      <h2 class="text-xl font-semibold mb-2 text-blue-800">Monthly Attack Trends</h2>
+      <canvas id="monthlyAttacksChart"></canvas>
+    </section>
+
+    <section class="bg-white shadow-lg rounded-2xl p-4 col-span-1 md:col-span-2">
+      <h2 class="text-xl font-semibold mb-2 text-blue-800">Top 5 Targeted Countries</h2>
+      <canvas id="countryChart"></canvas>
+    </section>
+
+    <section class="bg-white shadow-lg rounded-2xl p-4 col-span-1 md:col-span-2">
+      <h2 class="text-xl font-semibold mb-2 text-blue-800">Insights</h2>
+      <ul class="list-disc pl-6 space-y-2 text-gray-700">
+        <li>Phishing remains the most common attack type, representing over 40% of total threats.</li>
+        <li>Cyber attacks peak in Q3, with a 25% increase compared to Q1.</li>
+        <li>Developed nations face higher frequency of ransomware attacks due to valuable data assets.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script>
+    // Attack Types Pie Chart
+    const attackCtx = document.getElementById('attackTypesChart').getContext('2d');
+    new Chart(attackCtx, {
+      type: 'pie',
+      data: {
+        labels: ['Phishing', 'Malware', 'Ransomware', 'DDoS', 'Insider Threat'],
+        datasets: [{
+          label: 'Attack Distribution',
+          data: [40, 25, 15, 10, 10],
+          backgroundColor: [
+            'rgba(37, 99, 235, 0.7)',
+            'rgba(59, 130, 246, 0.7)',
+            'rgba(96, 165, 250, 0.7)',
+            'rgba(147, 197, 253, 0.7)',
+            'rgba(191, 219, 254, 0.7)'
+          ],
+          borderWidth: 1
+        }]
+      }
+    });
+
+    // Monthly Attacks Line Chart
+    const monthCtx = document.getElementById('monthlyAttacksChart').getContext('2d');
+    new Chart(monthCtx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        datasets: [{
+          label: 'Number of Attacks',
+          data: [120, 150, 180, 210, 260, 300, 350, 400, 370, 340, 290, 250],
+          fill: false,
+          borderColor: 'rgba(37, 99, 235, 1)',
+          tension: 0.3
+        }]
+      }
+    });
+
+    // Country Bar Chart
+    const countryCtx = document.getElementById('countryChart').getContext('2d');
+    new Chart(countryCtx, {
+      type: 'bar',
+      data: {
+        labels: ['USA', 'India', 'UK', 'Germany', 'Brazil'],
+        datasets: [{
+          label: 'Attack Frequency',
+          data: [400, 350, 300, 250, 200],
+          backgroundColor: 'rgba(37, 99, 235, 0.7)',
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
